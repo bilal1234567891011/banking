@@ -9,6 +9,9 @@ import { DataService } from '../services/data.service';
 export class TransactionComponent {
   transactionData:any
 constructor(private ds:DataService){
-this.transactionData=this.ds.getTransaction(this.ds.currentAcno)
+  
+this.ds.getTransaction(JSON.parse(localStorage.getItem("currentAcno")|| "")).subscribe((result:any)=>{
+  this.transactionData=result.transaction
+})
 }
 }

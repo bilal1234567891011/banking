@@ -1,17 +1,27 @@
 <div class="container w-50 rounded text-center p-3 mt-5" style="background-color: rgba(0, 0, 0, 0.468); " >
     <h1>Sign Up To  Bank </h1>
-    <form action="">
+    <form [formGroup]="registerForm" action="">
         <div class="p-3 mt-2">
-            <input  [(ngModel)]="uname"  id="unamid" name="usern1" class="form-control" type="text" placeholder="Enter username">
+            <input formControlName="uname"   id="unamid" name="usern1" class="form-control" type="text" placeholder="Enter username">
+        </div>
+        <div *ngIf="this.registerForm.get('uname')?.errors && this.registerForm.get('uname')?.touched">
+<p class="text-danger">must contain characters</p>
         </div>
 
         <div class="p-3 mt-2">
-            <input [(ngModel)]="acno"  id="acid" name="acnum1" class="form-control" type="text" placeholder="Enter acnum">
+            <input formControlName="acno"   id="acid" name="acnum1" class="form-control" type="text" placeholder="Enter acnum">
         </div>
+        <div *ngIf="this.registerForm.get('acno')?.errors && this.registerForm.get('acno')?.touched">
+            <p class="text-danger">accept only numbers</p>
+                    </div>
+            
 
         <div class="p-3 mt-2">
-            <input [(ngModel)]="psw"  id="psw1" name="paswrd1" class="form-control" type="password" placeholder="Enter password">
+            <input formControlName="psw"  id="psw1" name="paswrd1" class="form-control" type="password" placeholder="Enter password">
         </div>
+        <div *ngIf="this.registerForm.get('psw')?.errors && this.registerForm.get('psw')?.touched">
+            <p class="text-danger">accept only numbers and characters</p>
+                    </div>
 
         <div class="p-3 mt-2">
             <button  type="button" (click)="register()"  class="btn btn-outline-warning">register</button>

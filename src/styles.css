@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 body{
-    background-image: url("./assets/bank.jpg");
+    background-image: url("https://i.postimg.cc/XYq7kjkS/bank.jpg");
     background-size: cover;
+}
+.style{
+    opacity: 0;
 }

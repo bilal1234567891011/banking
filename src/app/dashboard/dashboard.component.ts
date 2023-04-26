@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -8,40 +10,90 @@ import { DataService } from '../services/data.service';
 })
 export class DashboardComponent {
 user:any
-
 acno:any
-psw:any
-amnt:any
+datedetails:any
 
-acno1:any
-psw1:any
-amnt1:any
+constructor(private ds:DataService,private fs:FormBuilder,private router:Router){
 
-constructor(private ds:DataService){
- this.user= this.ds.currentUser
+  if(localStorage.getItem("currentUser")){
+ this.user= JSON.parse(localStorage.getItem("currentUser")||"")
+  }
+
+ //access date
+this.datedetails=new Date()
+}
+depositForm=this.fs.group({
+acno:['',[Validators.required,Validators.pattern('[0-9]+')]],
+psw:['',[Validators.required,Validators.pattern('[0-9a-zA-Z]+')]],
+amnt:['',[Validators.required,Validators.pattern('[0-9]+')]]
+})
+
+withdrawForm=this.fs.group({
+  acno1:['',[Validators.required,Validators.pattern('[0-9]+')]],
+  psw1:['',[Validators.required,Validators.pattern('[0-9a-zA-Z]+')]],
+  amnt1:['',[Validators.required,Validators.pattern('[0-9]+')]]
+  })
+  
+ngOnInit(): void{
+  if(!localStorage.getItem("token")){
+    alert('please login')
+    this.router.navigateByUrl("")
+  }
 
 }
+
 deposit(){
 
-  var acno=this.acno
-  var psw=this.psw
-  var amnt=this.amnt
-  const result=this.ds.deposit(acno,psw,amnt)
-  if(result){
-    alert(`your ac has been credited with amount ${amnt}.and the current balance is ${result}`)
-  }
-  else{
-    alert("incorrect password or acno")
-  }
+  var acno=this.depositForm.value.acno
+  var psw=this.depositForm.value.psw
+  var amnt=this.depositForm.value.amnt
+if(this.depositForm.valid){
+
+  this.ds.deposit(acno,psw,amnt).subscribe((result:any)=>{
+    alert(result.message)
+  },
+  result =>{
+    alert(result.error.message)
+  })
+}
+else{
+  alert("invalid form")
+}
 }
 withdraw(){
-  var acno=this.acno1
-  var psw=this.psw1
-  var amnt=this.amnt1
-  const result=this.ds.withdraw(acno,psw,amnt)
-  if(result){
-    alert(`your ac has been debited with amount ${amnt}.and the current balance is ${result}`)
+  var acno=this.withdrawForm.value.acno1
+  var psw=this.withdrawForm.value.psw1
+  var amnt=this.withdrawForm.value.amnt1
+  if(this.withdrawForm.valid){
+  this.ds.withdraw(acno,psw,amnt).subscribe((result:any)=>{
+    alert(result.message)
+  },
+  result=>{
+    alert(result.error.message)
+  })
 
   }
+else{
+  alert('invalid form')
+}
+}
+logout(){
+  localStorage.removeItem("currentUser")
+  localStorage.removeItem("currentAcno")
+  localStorage.removeItem("token")
+  this.router.navigateByUrl("")
+}
+deleteParent(){
+   this.acno= JSON.parse(localStorage.getItem("currentAcno")|| "")
+}
+cancel(){
+  this.acno=''
+}
+Delete(event:any){
+// alert(event)
+this.ds.deleteacc(event).subscribe((result:any)=>{
+  alert(result.message)
+  this.logout()
+})
 }
 }

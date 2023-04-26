@@ -1,3 +1,16 @@
+Angular
+----------
+
+create projects      
+          -ng new projectName
+
+clear errors/warnings
+          -npm i --force
+fullform of npm-node package manager
+project running
+        -ng serve --open
+                            
+
 life cycle of angular component
 ----------------------------------------
 
@@ -62,5 +75,100 @@ to store redentent datas and methods
 Angular Dierectives - to manipulate DOM
 --------------------------------
 
-1.component dierectives
-2.stuctural dierectives   *ngFor
+1.component dierectives-normal component
+2.stuctural dierectives   *ngFor *ngIf
+3.atribute dierectives -- [ngClass]-to applay a class
+
+
+validation In Angular
+----------------------------------
+
+form creation in angular
+
+  1.template driven form--it is difficult to validate--normal creating form 
+  2.model driven form--it is easy to validate
+
+    2.1.reactive form--it is used to create model of form
+       reactive form contain -group,array,control
+
+         -ReactiveFormsModule--it is the module with this module we will do reactive form we need to import this module
+         -FormBuilder        --class used to create model form
+         -group()            --method to create model 
+
+
+Local Storage In Angular
+---------------------------------
+
+localStorage.getItem()
+localStorage.setItem()
+localStorage.removeItem()
+
+
+jason
+-------
+stringify --it is used to covert jason
+
+parse--from jason to our language
+
+
+parent Child components Communicatioin
+----------------------------------------------
+
+@input() parent to Child data sharing
+@output() Child to parent data sharing
+
+Event Creation In Angular
+-------------------------------
+
+we can create our own events in angular projects
+
+EventEmitter -class used to create userdefined events
+
+                    eventname=new EventEmitter()
+
+                    emit() - to define the working time/to start the event
+    
+Date and Time In Angular
+-------------------------------
+
+class - Date
+
+Angular Pipes
+---------------
+to convert datas into another format
+
+API creation In Angular
+------------------------
+
+HttpClientModule - module to create web api calls
+
+HttpClient       - class inside the HttpClientModule
+
+
+folder    file     class    methods
+
+package   modules  class    methods
+
+
+Asynchronous Code handling in ts
+----------------------------------
+
+js - promise - resolve then()
+               reject  catch()
+
+ts - observable - resolve subscribe()
+                - reject  catch()
+
+
+Header generation for api request
+-----------------------------------
+
+HttpHeaders - class used to generate headers
+
+to instal server
+-----------------
+npm i -g http-server
+
+to run
+--------
+http-server
